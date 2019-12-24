@@ -12,10 +12,10 @@ const port = 3000;
 // create connection to database
 // the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: 'nodeuser@1234',
-    database: 'db_example',
+    host: 'custom-mysql.gamification.svc.cluster.local',
+    user: 'xxuser',
+    password: 'welcome1',
+    database: 'sampledb',
     insecureAuth:true
 });
 
