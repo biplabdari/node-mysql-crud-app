@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 module.exports = {
     addPlayerPage: (req, res) => {
@@ -24,7 +25,7 @@ module.exports = {
         image_name = username + '.' + fileExtension;
 
         let usernameQuery = "SELECT * FROM `players` WHERE user_name = '" + username + "'";
-
+        console.log(uploadDir);
         db.query(usernameQuery, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
@@ -39,7 +40,7 @@ module.exports = {
                 // check the filetype before uploading it
                 if (uploadedFile.mimetype === 'image/png' || uploadedFile.mimetype === 'image/jpeg' || uploadedFile.mimetype === 'image/gif') {
                     // upload the file to the /public/assets/img directory
-                    uploadedFile.mv(`public/assets/img/${image_name}`, (err ) => {
+                    uploadedFile.mv(`${uploadDir}/${image_name}`, (err ) => {
                         if (err) {
                             return res.status(500).send(err);
                         }
@@ -104,7 +105,7 @@ module.exports = {
 
             let image = result[0].image;
 
-            fs.unlink(`public/assets/img/${image}`, (err) => {
+            fs.unlink(`${uploadDir}/${image}`, (err) => {
                 if (err) {
                     return res.status(500).send(err);
                 }

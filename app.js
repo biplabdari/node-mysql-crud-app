@@ -7,15 +7,16 @@ const app = express();
 
 const {getHomePage} = require('./routes/index');
 const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
-const port = 2000;
+const port = 3000;
 
 // create connection to database
 // the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
-    password: '',
-    database: 'socka'
+    password: 'nodeuser@1234',
+    database: 'db_example',
+    insecureAuth:true
 });
 
 // connect to database
@@ -26,7 +27,8 @@ db.connect((err) => {
     console.log('Connected to database');
 });
 global.db = db;
-
+const uploadDir = path.normalize(`${__dirname}/assets`)
+global.uploadDir = uploadDir;
 // configure middleware
 app.set('port', process.env.port || port); // set express to use this port
 app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
